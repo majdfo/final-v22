@@ -1,4 +1,5 @@
 streamlit
+libGL
 opencv-python-headless
 ultralytics
 torch
@@ -6,4 +7,3 @@ Pillow
 numpy
 requests
 streamlit-webrtc
-
