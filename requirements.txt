@@ -1,5 +1,5 @@
 streamlit
-libGL
+libgl1
 opencv-python-headless
 ultralytics
 torch
