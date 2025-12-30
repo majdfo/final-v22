@@ -1,10 +1,9 @@
 streamlit
+libGL
+opencv-python-headless
+ultralytics
 torch
 Pillow
-torchvision
 numpy
-opencv-python
-pyyaml
 requests
 streamlit-webrtc
-ultralytics
