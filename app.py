@@ -8,88 +8,79 @@ import base64
 import os
 import time
 
-# --- 1. إعدادات الصفحة والتنسيق الاحترافي ---
+
 st.set_page_config(page_title="SafeDrive AI", page_icon="🛡️", layout="wide")
 
 st.markdown("""   <style>
-/* تخصيص عنوان "SafeDrive AI" ليكون في أعلى الصفحة */
 .stApp .main-header {
-    margin-top: 1px; /* تحديد المسافة بين العنوان وبقية العناصر */
-    text-align: center; /* توسيط العنوان */
+    margin-top: 1px;
+    text-align: center;
     
 }
 
-/* تخصيص العنوان الفرعي */
+
 .stApp .main-header p {
-    margin-bottom: 100px; /* تعديل المسافة بين العنوان الفرعي والعنوان الرئيسي */
-    text-align: center; /* توسيط النص */
-    font-size: 18px; /* حجم الخط */
+    margin-bottom: 100px; 
+    text-align: center; 
+    font-size: 18px;
 }
 
-   
-    /* 1. تخصيص الشريط الجانبي */
+  
     [data-testid="stSidebar"] {
         background-color: #161b22 !important;
         border-right: 1px solid #30363d;
-        padding-top: 20px;  /* إضافة مسافة فوق */
+        padding-top: 20px;  
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
     }
-    /* 1. تخصيص الشريط الجانبي ليكون باستخدام flexbox */
+
     [data-testid="stSidebar"] {
         display: flex;
         flex-direction: column;
-        align-items: center; /* توسيط المحتوى أفقيًا */
-        justify-content: flex-start; /* محاذاة المحتوى من الأعلى */
+        align-items: center;
+        justify-content: flex-start; 
         background-color: #161b22 !important;
         padding-top: 20px;
     }
 
-    /* 2. تخصيص كلمة "Settings" لتكون في المنتصف */
+
     [data-testid="stSidebar"] h1 {
-        color: white !important; /* اللون الأبيض */
+        color: white !important;
         text-align: center;
-        margin-top: 20px; /* إضافة مسافة من الأعلى */
-        width: 100%; /* جعل العنوان يحتل كامل العرض */
-        text-align: center; /* توسيط النص */
+        margin-top: 20px;
+        width: 100%;
+        text-align: center; 
     }
  
-
-
-    /* 3. تخصيص الصورة داخل الشريط الجانبي لتكون في المنتصف */
     [data-testid="stSidebar"] img {
         display: block;
-        margin: 0 auto 20px; /* توسيط الصورة */
-        width: 50%; /* يمكن تعديل العرض حسب الرغبة */
-    }
-        /* تخصيص الـ radio buttons و checkboxes */
-    div[data-testid="stRadio"] label, 
-    div[data-testid="stCheckbox"] label {
-        color: white !important; /* لون النص أبيض */
+        margin: 0 auto 20px;
+        width: 50%;
     }
  
-    /* تخصيص النصوص في الشريط الجانبي لتكون باللون الأبيض */
+    div[data-testid="stRadio"] label, 
+    div[data-testid="stCheckbox"] label {
+        color: white !important;
+    }
+
     [data-testid="stSidebar"] .stText, 
     [data-testid="stSidebar"] label, 
     [data-testid="stSidebar"] p {
-        color: white !important; /* اللون الأبيض للنصوص */
+        color: white !important;
     }
 
-    /* تغيير لون كلمة "Settings" داخل الشريط الجانبي */
     [data-testid="stSidebar"] h1 {
-        color: white !important; /* تغيير لون العنوان إلى الأبيض */
+        color: white !important; 
         text-align: center;
     }
 
-    /* تخصيص الـ radio buttons و checkboxes */
     div[data-testid="stRadio"] label, 
     div[data-testid="stCheckbox"] label {
-        color: white !important; /* لون النص أبيض */
+        color: white !important;
     }
 
-    /* تخصيص الـ radio buttons والـ checkboxes */
     div[data-testid="stRadio"] label, div[data-testid="stCheckbox"] label {
         background-color: rgba(255, 255, 255, 0.05) !important;
         border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -107,19 +98,17 @@ st.markdown("""   <style>
         border-color: #3b82f6 !important;
     }
 
-    /* تخصيص السلايدر ليظهر نصه أبيض */
     .stSlider label {
         color: white !important;
     }
     
-    /* تخصيص السلايدر ليظهر نصه أبيض */
     .stSlider label {
         color: white !important;
     }
 
-    /* 4. تخصيص الـ radio buttons والـ checkboxes */
+
     div[data-testid="stRadio"] label, div[data-testid="stCheckbox"] label {
-        background-color: #21262d !important; /* لون خلفية داكن */
+        background-color: #21262d !important;
         border: 1px solid #30363d !important;
         border-radius: 8px !important;
         padding: 12px 15px !important;
@@ -131,8 +120,6 @@ st.markdown("""   <style>
         transition: all 0.3s ease !important;
         color: #ffffff !important;
     }
-
-    /* تأثير عند تمرير الماوس على الـ radio و checkbox */
     div[data-testid="stRadio"] label:hover, 
     div[data-testid="stCheckbox"] label:hover {
         border-color: #58a6ff !important;
@@ -140,17 +127,14 @@ st.markdown("""   <style>
         box-shadow: 0 0 10px rgba(88, 166, 255, 0.2) !important;
     }
 
-    /* إخفاء دوائر الراديو التقليدية */
     div[data-testid="stRadio"] input[type="radio"] {
         display: none;
     }
 
-    /* 5. تخصيص السلايدر ليظهر نصه أبيض */
     .stSlider label {
         color: white !important;
     }
 
-    /* 6. تخصيص الأزرار ليكون لها تأثير عند التمرير */
     .stButton>button {
         background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%) !important;
         color: white !important;
@@ -165,7 +149,6 @@ st.markdown("""   <style>
         box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
     }
 
-    /* تحسين نتائج الكروت */
     .result-card {
         background: rgba(30, 41, 59, 0.8);
         border-radius: 20px;
@@ -176,8 +159,7 @@ st.markdown("""   <style>
     </style>""", unsafe_allow_html=True)
 
 
-# ... (باقي الكود الخاص بـ Columns وتوزيع الـ Input Source)
-# --- 2. تحميل الموديلات والوظائف ---
+
 @st.cache_resource
 def load_all_models():
     v8 = YOLO("best.pt")
@@ -215,7 +197,6 @@ def analyze_image(img, model, model_name, container):
     container.caption(f"⏱️ Speed: {elapsed_time:.3f}s")
 
 
-# --- 3. الهيكل (Sidebar & Dashboard) ---
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/2555/2555013.png", width=80)
     st.title("Settings")
@@ -224,7 +205,7 @@ with st.sidebar:
     input_source = st.radio("Input Source:", ["Upload Image 🖼️", "Take a Photo 📸", "Live Stream 🎥"])
     engine_choice = st.radio("Detection Engine:", ["YOLOv8", "YOLOv11", "Both (Comparison Mode)"])
 
-# الواجهة الرئيسية
+
 st.markdown('<div class="main-header"><h1>🛡️ SafeDrive AI</h1><p>Advanced Driver Monitoring System</p></div>',
             unsafe_allow_html=True)
 
@@ -245,7 +226,7 @@ with col2:
     elif input_source == "Take a Photo 📸":
         data_file = st.camera_input("Capture driver snapshot")
 
-    # معالجة الصور (رفع أو التقاط)
+
     if data_file and input_source != "Live Stream 🎥":
         img_array = np.array(Image.open(data_file))
         st.markdown('<div class="result-card">', unsafe_allow_html=True)
@@ -259,7 +240,7 @@ with col2:
             analyze_image(img_array, active_model, engine_choice, st)
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # معالجة البث المباشر
+   
     elif input_source == "Live Stream 🎥":
         class StreamProcessor(VideoTransformerBase):
             def __init__(self, engine, m8, m11):
