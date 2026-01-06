@@ -171,8 +171,8 @@ model_v8, model_v11 = load_all_models()
 
 
 def play_alert_sound():
-    if os.path.exists("../pythonProject24/alert_sound.mp3"):
-        with open("../pythonProject24/alert_sound.mp3", "rb") as f:
+    if os.path.exists("alert_sound.mp3"):
+        with open("alert_sound.mp3", "rb") as f:
             b64 = base64.b64encode(f.read()).decode()
             st.markdown(f'<audio autoplay="true"><source src="data:audio/mp3;base64,{b64}"></audio>',
                         unsafe_allow_html=True)
